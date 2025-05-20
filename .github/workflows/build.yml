@@ -7,9 +7,9 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
       - name: Install dependencies
@@ -20,7 +20,7 @@ jobs:
                       --distpath dist/windows \
                       --name your_script.exe
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-exe
           path: dist/windows/your_script.exe
@@ -28,9 +28,9 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
                       --name your_script
           chmod +x dist/linux/your_script
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-bin
           path: dist/linux/your_script
