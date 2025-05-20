@@ -1,0 +1,46 @@
+# .github/workflows/build.yml
+name: Build executables
+
+on: [push]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with: python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt pyinstaller
+      - name: Package .exe
+        run: |
+          pyinstaller --onefile your_script.py \
+                      --distpath dist/windows \
+                      --name your_script.exe
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-exe
+          path: dist/windows/your_script.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with: python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt pyinstaller
+      - name: Package Linux binary
+        run: |
+          pyinstaller --onefile your_script.py \
+                      --distpath dist/linux \
+                      --name your_script
+          chmod +x dist/linux/your_script
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-bin
+          path: dist/linux/your_script
