@@ -15,7 +15,7 @@ def fuck():
         'CAS_SSO_COOKIE': token,
     })
     if res.ok:
-        value = res.json()['data'].encode()
+        value = str(res.json()['data'].encode())
         ws_auth = res.cookies.get('ws_auth')
         JSESSIONID = res.cookies.get('JSESSIONID')
     else:
